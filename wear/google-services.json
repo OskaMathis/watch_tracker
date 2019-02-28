@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1049575281708",
+    "firebase_url": "https://watch-tracker-3c2e5.firebaseio.com",
+    "project_id": "watch-tracker-3c2e5",
+    "storage_bucket": "watch-tracker-3c2e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049575281708:android:52221023fa829807",
+        "android_client_info": {
+          "package_name": "com.oskamathis.watchtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049575281708-cmeblmtar0udbt9qcqc4i8d5175h8583.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD68lit53WJLqDNFcHTRdt8_hfVGGR9Wgc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
