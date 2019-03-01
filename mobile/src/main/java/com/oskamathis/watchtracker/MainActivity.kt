@@ -22,9 +22,8 @@ import kotlin.math.log
 //import jdk.nashorn.internal.runtime.ECMAException.getException
 //import androidx.test.orchestrator.junit.BundleJUnitUtils.getResult
 import com.google.firebase.firestore.QueryDocumentSnapshot
+
 //import org.junit.experimental.results.ResultMatchers.isSuccessful
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,71 +33,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val taskNames = getTaskNames()
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RecyclerAdapter(this, taskNames)
+        getTaskNames()
     }
 
-    private fun getTaskNames() : List<String>{
+    private fun getTaskNames() {
         val taskNames = mutableListOf<String>()
-        val docRef = db.collection("Tasks")
-//        val docRef = db.collection("Tasks").document("PM業務説明")
-
-        docRef.get().addOnCompleteListener { task->
-//            if (task.isSuccessful) {
-//                val document = task.result ?: return@addOnCompleteListener
-//                if (document.exists()) {
-//                    Log.d("MainActivity", "DocumentSnapshot data: " + document.data)
-//                } else {
-//                    Log.d("MainActivity", "No such document");
-//                }
-//            } else {
-////                Log.d("MainActivity", "get failed with ", task.getException());
-//            }
+        val docRef = db.collection("tasks")
+        docRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result ?: return@addOnCompleteListener
                 for (document in result) {
-                    val taskName = document.data["name"]
+                    val taskName = document.data["name"].toString()
                     Log.d("MainActivity", document.id + " => " + document.data["name"])
-                    taskNames.add(taskName.toString())
+                    taskNames.add(taskName)
+                    recyclerView.adapter = RecyclerAdapter(this, taskNames)
                 }
             } else {
                 Log.d("MainActivity", "Error getting documents: ", task.exception)
             }
         }
-        return taskNames
-    }
-
-
-
-
-}
-
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val textView: TextView = itemView.findViewById(R.id.textView)
-}
-
-class RecyclerAdapter(context: Context, val data: List<String>) : RecyclerView.Adapter<ViewHolder>() {
-    val inflater = LayoutInflater.from(context)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // ここでViewHolderを作る
-        return ViewHolder(inflater.inflate(R.layout.list_item, parent, false))
-    }
-
-    override fun getItemCount(): Int {
-        // データの要素数を返す
-        return data.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // ViewHolderを通してデータをViewに設定する
-        holder.textView.text = data[position]
     }
 }
-
-data class Tasks(val tasks:List<Task>)
-data class Task(val name:String, val times:List<Time>)
-data class Time(val started_at:Date, val stopped_at:Date)
