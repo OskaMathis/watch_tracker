@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnCompleteListener
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(itemDecoration)
         getTaskNames()
     }
 
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 val result = task.result ?: return@addOnCompleteListener
                 for (document in result) {
                     val taskName = document.data["name"].toString()
-                    Log.d("MainActivity", document.id + " => " + document.data["name"])
+                    Log.d("MainActivity", document.id + " => " + taskName)
                     taskNames.add(taskName)
                     recyclerView.adapter = RecyclerAdapter(this, taskNames)
                 }

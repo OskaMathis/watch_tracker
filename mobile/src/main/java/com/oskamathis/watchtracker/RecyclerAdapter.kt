@@ -1,9 +1,11 @@
 package com.oskamathis.watchtracker
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+
 
 class RecyclerAdapter(context: Context, private val data: List<String>) : RecyclerView.Adapter<ViewHolder>() {
     private val inflater = LayoutInflater.from(context)
@@ -21,5 +23,8 @@ class RecyclerAdapter(context: Context, private val data: List<String>) : Recycl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // ViewHolderを通してデータをViewに設定する
         holder.textView.text = data[position]
+        holder.textView.setOnClickListener{
+            Log.d("MainActivity", "clicked")
+        }
     }
 }
